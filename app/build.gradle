@@ -1,0 +1,230 @@
+apply plugin: 'com.android.application'
+apply from: '../config/git-version.gradle'
+apply plugin: 'realm-android'
+
+android {
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.dafian.android.androidmvpboilerplate"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode gitVersionCode
+        versionName gitVersionName
+
+        archivesBaseName = "Android-MVP-Boilerplate-${gitVersionName}"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+
+        release {
+            keyAlias 'goxeranta'
+            keyPassword 'goxeranta'
+            storeFile file('../key/ustadz-live.jks')
+            storePassword 'goxeranta'
+        }
+    }
+
+    flavorDimensions "xeranta"
+
+    productFlavors {
+
+        def signKey = signingConfigs.release
+
+        beta {
+            dimension "xeranta"
+            applicationIdSuffix ".beta"
+            signingConfig signKey
+        }
+
+        production {
+            dimension "xeranta"
+            signingConfig signKey
+        }
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+        }
+
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+
+        return void
+    }
+
+    splits {
+        // Split apks on build target ABI, view all options for the splits here:
+        // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
+        abi {
+            enable true
+            reset()
+            include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'x86', 'x86_64'
+        }
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation (project(path: ':liveVideoBroadcasterSDK')) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'net.butterflytv.utils', module: 'rtmp-client'
+    }
+
+    // ANDROID SUPPORT
+    implementation "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    implementation ("com.android.support:support-v13:$rootProject.supportLibraryVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    implementation ("com.android.support:appcompat-v7:$rootProject.supportLibraryVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    implementation ("com.android.support:design:$rootProject.supportLibraryVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+    implementation ("com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    implementation ("com.android.support:cardview-v7:$rootProject.supportLibraryVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    implementation ("com.android.support:preference-v14:$rootProject.supportLibraryVersion") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+
+    // VIEW INJECTION
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterKnifeVersion"
+    implementation ("com.jakewharton:butterknife:$rootProject.ext.butterKnifeVersion") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-compact'
+    }
+
+    // DAGGER 2
+    implementation "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+
+    // RX
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
+    implementation ("io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion") {
+        exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
+    }
+
+    // NETWORK
+    implementation "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
+    implementation ("com.squareup.okhttp3:okhttp-urlconnection:$rootProject.ext.okHttpVersion") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
+    implementation ("com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
+    implementation ("com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
+    implementation ("com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion") {
+        exclude group: 'com.squareup.retrofit2', module: 'retrofit'
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
+    implementation ("com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion") {
+        exclude group: 'com.squareup.retrofit2', module: 'retrofit'
+        exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
+    }
+    implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+
+    // ONE SIGNAL
+    implementation ('com.onesignal:OneSignal:3.6.5') {
+        exclude group: 'com.google.android.gms', module: 'play-services-location'
+        exclude group: 'com.google.android.gms', module: 'play-services-gcm'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'customtabs'
+    }
+
+    // EXO PLAYER
+    implementation ('com.google.android.exoplayer:exoplayer:r2.5.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    implementation ('com.google.android.exoplayer:extension-rtmp:r2.5.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.android.exoplayer', module: 'exoplayer-core'
+        exclude group: 'net.butterflytv.utils', module: 'rtmp-client'
+    }
+
+    // PLAY SERVICES
+    implementation "com.google.android.gms:play-services-location:$rootProject.ext.playServiceVersion"
+    implementation "com.google.android.gms:play-services-maps:$rootProject.ext.playServiceVersion"
+    implementation "com.google.android.gms:play-services-gcm:$rootProject.ext.playServiceVersion"
+
+    // FIRE BASE
+    implementation "com.google.firebase:firebase-core:$rootProject.ext.firebaseVersion"
+    implementation "com.google.firebase:firebase-crash:$rootProject.ext.firebaseVersion"
+
+    // FRAGMENTATION
+    implementation 'me.yokeyword:fragmentation-core:1.1.10'
+    implementation ('me.yokeyword:fragmentation:1.1.10') {
+        exclude group: 'me.yokeyword', module: 'fragmentation-core'
+    }
+
+    // EVENT BUS
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+    // OTHER
+    implementation "com.jakewharton.timber:timber:$rootProject.ext.timberVersion"
+    implementation ('com.github.jkwiecien:EasyImage:1.3.1') {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+    implementation ('com.wdullaer:materialdatetimepicker:3.1.0') {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-v13'
+        exclude group: 'com.android.support', module: 'design'
+    }
+    implementation ('com.getbase:floatingactionbutton:1.10.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+    implementation 'net.butterflytv.utils:rtmp-client:3.0.0RC1'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    testImplementation "org.hamcrest:hamcrest-core:$rootProject.ext.hamcrestVersion"
+    testImplementation ("junit:junit:$rootProject.ext.junitVersion") {
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+    testImplementation ("org.mockito:mockito-core:$rootProject.ext.mockitoVersion") {
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+//apply plugin: 'com.google.gms.google-services'
