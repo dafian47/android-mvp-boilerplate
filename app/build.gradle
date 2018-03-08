@@ -21,10 +21,10 @@ android {
     signingConfigs {
 
         release {
-            keyAlias 'goxeranta'
-            keyPassword 'goxeranta'
-            storeFile file('../key/ustadz-live.jks')
-            storePassword 'goxeranta'
+            keyAlias 'dafian'
+            keyPassword 'dafian'
+            storeFile file('../key/dafian.jks')
+            storePassword 'dafian'
         }
     }
 
