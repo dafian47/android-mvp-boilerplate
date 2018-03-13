@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_normal"
+    android:background="@color/backgroundInner">
+
+    <ImageView
+        android:id="@+id/iv_flag"
+        android:layout_width="@dimen/image_choice_size"
+        android:layout_height="@dimen/image_camera_size"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        tools:src="@color/backgroundOuter"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/TextHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/iv_flag"
+        android:layout_alignTop="@+id/iv_flag"
+        tools:text="Afghanistan"/>
+
+    <TextView
+        android:id="@+id/tv_native_name"
+        style="@style/TextHeaderSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewEnd"
+        android:layout_toEndOf="@+id/tv_name"
+        android:layout_alignTop="@+id/tv_name"
+        android:layout_marginStart="@dimen/padding_normal"
+        tools:text="افغانستان"/>
+
+    <TextView
+        android:id="@+id/tv_capital"
+        style="@style/TextBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_alignStart="@+id/tv_name"
+        tools:text="Kabul"/>
+
+    <TextView
+        android:id="@+id/tv_region_sub_region"
+        style="@style/TextBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_capital"
+        android:layout_alignStart="@+id/tv_name"
+        tools:text="Asia / Southern Asia"/>
+
+    <TextView
+        android:id="@+id/tv_population"
+        style="@style/TextSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_region_sub_region"
+        android:layout_alignStart="@+id/tv_name"
+        android:layout_marginTop="@dimen/padding_normal"
+        tools:text="27.657.145 People"/>
+
+</RelativeLayout>

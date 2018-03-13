@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Standard Metrics -->
+    <dimen name="margin_card">-40dp</dimen>
+    <dimen name="margin_top">0dp</dimen>
+    <dimen name="margin_edge">0dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_normal">0dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+
+    <!-- App Primary Text Sizes -->
+    <dimen name="app_text_size_small">12sp</dimen>
+    <dimen name="app_text_size_medium">14sp</dimen>
+    <dimen name="app_text_size_large">16sp</dimen>
+    <dimen name="app_text_size_xlarge">21sp</dimen>
+
+    <!-- Divider Size -->
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="tab_divider_height">3dp</dimen>
+
+    <!-- Body Content -->
+    <dimen name="width_divider_highlight">60dp</dimen>
+    <dimen name="width_content_mini">80dp</dimen>
+    <dimen name="width_content_small">110dp</dimen>
+
+    <!-- Default Image Background Size -->
+    <dimen name="image_background_size">170dp</dimen>
+    <dimen name="image_photo_size">56dp</dimen>
+    <dimen name="image_profile_size">120dp</dimen>
+    <dimen name="image_icon_size">30dp</dimen>
+    <dimen name="image_camera_size">50dp</dimen>
+    <dimen name="image_remark_size">20dp</dimen>
+    <dimen name="image_choice_size">80dp</dimen>
+    <dimen name="image_toga_size">200dp</dimen>
+
+    <!-- Bottom Bar -->
+
+    <dimen name="bottom_bar_height">56dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="nav_drawer_width">290dp</dimen>
+
+</resources>
